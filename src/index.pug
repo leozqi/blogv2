@@ -3,7 +3,7 @@ append head
   :inject(file="main.styl")
 append body
   .console
-    pre
+    pre#lines
       span █████                               ██████      ██ 
       span ░░███                              ███░░░░███  ░░░  
       span  ░███         ██████   ██████     ███    ░░███ ████ 
@@ -15,8 +15,7 @@ append body
       br
       span Connected to who knows where ...
       br
-      code Hello there!
     .prompt 
-      span(role='textbox' contenteditable='true')#entry
+      span(role='textbox' contenteditable='true' autofocus='true')#entry
   :inject(file="yummy.coffee")
 
