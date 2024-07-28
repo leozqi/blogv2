@@ -10,22 +10,46 @@ entryElement.addEventListener 'blur', (evt) ->
 
 
 traverse = (path) ->
-  chunks = (path.split '/')
+  if path == '/'
+    chunks = ['']
+  else
+    chunks = (path.split '/')
 
   tree = filesystem
   for folder in chunks
-    tree = tree[folder]
+    if folder of tree
+      tree = tree[folder]
+    else
+      return []
 
-  console.log(tree)
-  [k for k, v of tree]
+  if typeof tree is 'string'
+    tree
+  else
+    [k for k, v of tree]
 
+
+cat = (args) ->
+  path = "#{currentDir}/#{args[0]}"
+  findit = traverse path
+  if typeof findit is 'string'
+    return findit.split '\n'
+  else
+    return ["cat: #{args[0]}: No such file or directory"]
+
+
+ls = (args) ->
+  inDir = []
+  if "-a" in args
+    inDir.push ".", ".."
+
+  return [ (inDir.concat (traverse currentDir)).join ' ']
 
 resolve = (cmd, args) ->
   switch cmd
     when "echo" then return [(args.join ' ')]
     when "ping" then return ["You're online!"]
-    when "ls" then return (traverse currentDir)
-
+    when "ls" then return (ls args)
+    when "cat" then return (cat args)
     else return ["Unknown command: #{cmd}"]
 
 exec = (pseudocommand) ->
@@ -47,11 +71,13 @@ exec = (pseudocommand) ->
 entryElement.addEventListener 'keydown', (evt) ->
   if (evt.key == 'Enter')
     evt.preventDefault()
-    exec entryElement.innerHTML
+    line = entryElement.innerHTML
     entryElement.innerHTML = ''
+    exec line
   else if (evt.key == 'ArrowLeft' || evt.key == 'ArrowRight')
     evt.preventDefault()
 
 # Demo command that user sees on logon
-exec "ls -a"
+exec "cat about-me.txt"
+exec "ls"
 
