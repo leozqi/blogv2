@@ -1,69 +1,70 @@
-.bookshelf
-  width: 900px
-  margin: 4rem auto
-  text-align: center
-  position: relative
-
-.book-grid
-  z-index: 2
-  position: relative
-  transform: translateY(-15px)
-  ul
-    list-style: none
-    padding: 0
-    margin: 0
-    display: grid
-    grid-template-columns: repeat(4, 1fr)
-    li
-      justify-self: center
-    img
-      display: block
-      box-shadow: 0px -5px 20px 2px rgba(white, 0.3)
-      width: 160px
-      height: 240px
-      object-fit: cover
-.shelf-shadows
-  position: absolute
-  bottom: 0
-  left: 0
-  width: 100%
-  height: 1rem
-  border-radius: 2px
-  z-index: 1
-  box-shadow: 0px -5px 3px 0px rgba(#aaa, 0.2), 0px 15px 20px 0px rgba(#aaa, 0.7), 0px 5px 5px 0px rgba(#777, 0.3)
-
-.shelf
-  position: absolute
-  bottom: 0
-  left: 0
-  width: 100%
-  height: 1rem
-  border-radius: 2px
-  z-index: 3
-  background-color: #f9f9f9
-
-.noise
-  position: absolute
-  width: 100%
-  height: 100%
-  background: linear-gradient(to top, purple, transparent), url("back.svg")
-  filter: contrast(170%) brightness(1000%)
-  z-index: -5
-
 html
   background-color: black
 
+body  
+  margin: 0
+  padding: 80px
+
+textarea
+  all: unset
+
 .console
-  //background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%)
-  height: 100vh
-  color: white
-  font: 1.3rem Inconsolata, monospace
+  color: #c8c8c8
+  font: 0.8rem Inconsolata, monospace
   text-shadow: 0 0 5px #C8C8C8
 
   pre
-    padding: 10%
+    span
+      display: block
+      margin-top: 0.1rem
+    code
+      display: block
+      margin-top: 0.1rem
+    code::before
+      content: "~ $"
+      color: #16F529
+      width: 3em
+      display: inline-block
+      padding-left: auto
+      margin-left: auto
+
+  .prompt
+    textarea
+      width: 80%
+
+  .prompt:before
+      content: "~ $"
+      color: #16F529
+      width: 2.4em
+      display: inline-block
+      padding-left: auto
+      margin-left: auto
+
+#entry::after
+  display: inline-block
+  content: "_"
+  background-color: white
+  -webkit-animation: blink 1s step-end infinite
+  animation: blink 1s step-end infinite
+
+@-webkit-keyframes blink
+  0%
+    opacity: 1.0
+  50%
+    opacity: 0.0
+  100%
+    opacity: 1.0
+
+@keyframes blink
+  0%
+    opacity: 1.0
+  50%
+    opacity: 0.0
+  100%
+    opacity: 1.0
 
 .console:after
+  pointer-events: none
   content: ""
   position: absolute
   top: 0
@@ -71,10 +72,9 @@ html
   width: 100vw
   height: 100vh
   background: repeating-linear-gradient(0deg, rgba(black, 0.15), rgba(black, 0.15) 1px, transparent 1px, transparent 2px)
+  z-index: 2
 
-pre::selection
-  background: #0080ff
-  text-shadow: none
+//.console::selection
+//  background: #0080ff
+//  text-shadow: none
 
-body  
-  margin: 0
