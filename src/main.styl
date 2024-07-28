@@ -5,7 +5,7 @@ body
   margin: 0
   padding: 80px
 
-textarea
+span
   all: unset
 
 .console
@@ -14,12 +14,12 @@ textarea
   text-shadow: 0 0 5px #C8C8C8
 
   pre
+    margin: 0
+    padding: 0
     span
       display: block
-      margin-top: 0.1rem
     code
       display: block
-      margin-top: 0.1rem
     code::before
       content: "~ $"
       color: #16F529
@@ -29,24 +29,25 @@ textarea
       margin-left: auto
 
   .prompt
-    textarea
-      width: 80%
+    color: #c8c8c8
+
+    #entry
+      caret-color: black
+      width: 90%
+
+    #entry::after
+      content: "_"
+      background-color: white
+      -webkit-animation: blink 1s step-end infinite
+      animation: blink 1s step-end infinite
 
   .prompt:before
-      content: "~ $"
-      color: #16F529
-      width: 2.4em
-      display: inline-block
-      padding-left: auto
-      margin-left: auto
-
-#entry::after
-  display: inline-block
-  content: "_"
-  background-color: white
-  -webkit-animation: blink 1s step-end infinite
-  animation: blink 1s step-end infinite
-
+    content: "~ $"
+    color: #16F529
+    width: 2.4em
+    display: inline-block
+    padding-left: auto
+    margin-left: auto
 @-webkit-keyframes blink
   0%
     opacity: 1.0
@@ -74,7 +75,7 @@ textarea
   background: repeating-linear-gradient(0deg, rgba(black, 0.15), rgba(black, 0.15) 1px, transparent 1px, transparent 2px)
   z-index: 2
 
-//.console::selection
-//  background: #0080ff
-//  text-shadow: none
+::selection
+  background: #0080ff
+  text-shadow: none
 
